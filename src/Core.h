@@ -7,3 +7,7 @@
 
 #define SCREEN_WIDTH_IN_UNITS 16.0f
 #define SCREEN_HEIGHT_IN_UNITS (SCREEN_WIDTH_IN_UNITS / ((float)GetScreenWidth() / (float)GetScreenHeight()))
+
+#define BORDER_SIZE 0.2f
+
+float Sign(float n);

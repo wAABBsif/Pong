@@ -1,10 +1,10 @@
 #pragma once
 #include "Core.h"
 
-#define PADDLE_WIDTH 0.25f
-#define DEFAULT_PADDLE_HEIGHT 1.0f
+#define PADDLE_WIDTH 0.2f
+#define DEFAULT_PADDLE_HEIGHT 1.5f
 #define DEFAULT_EDGE_DISTANCE 0.5f
-#define DEFAULT_MOVE_SPEED 6.0f
+#define DEFAULT_MOVE_SPEED 8.0f
 
 #define PLAYER_CPU 0
 #define PLAYER_WASD 1
@@ -18,4 +18,4 @@ typedef struct Paddle
 } Paddle;
 
 void Paddle_Update(Paddle* const paddle, unsigned char playerType);
-void Paddle_Draw(const Paddle* paddle, Color color);
+void Paddle_Draw(const Paddle* paddle, const Color color);

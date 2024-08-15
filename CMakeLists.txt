@@ -26,6 +26,9 @@ add_executable(${PROJECT_NAME} src/Main.c
         src/Paddle.h
         src/Core.h
         src/Paddle.c
+        src/Ball.h
+        src/Ball.c
+        src/Math.c
 )
 include_directories(include)
 target_link_libraries(${PROJECT_NAME} raylib)

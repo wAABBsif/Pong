@@ -33,10 +33,10 @@ void Paddle_Update(Paddle *const paddle, unsigned char playerType)
         paddle->position.y += paddle->movementSpeed * GetFrameTime();
     }
 
-    paddle->position.y = Clamp(paddle->position.y, SCREEN_HEIGHT_IN_UNITS / -2.0f, SCREEN_HEIGHT_IN_UNITS / 2.0f);
+    paddle->position.y = Clamp(paddle->position.y, (SCREEN_HEIGHT_IN_UNITS - paddle->height - BORDER_SIZE) / -2.0f, (SCREEN_HEIGHT_IN_UNITS - paddle->height - BORDER_SIZE) / 2.0f);
 }
 
-void Paddle_Draw(const Paddle *const paddle, Color color)
+void Paddle_Draw(const Paddle *const paddle, const Color color)
 {
     DrawRectangle((paddle->position.x - (PADDLE_WIDTH - SCREEN_WIDTH_IN_UNITS) / 2.0f) * UNIT_TO_PIXELS,
                   (paddle->position.y - (paddle->height - SCREEN_HEIGHT_IN_UNITS) / 2.0f) * UNIT_TO_PIXELS,
