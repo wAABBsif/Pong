@@ -11,13 +11,14 @@
 #define BORDER_SIZE 0.2f
 
 float Sign(float n);
+void ScoreToString(int score, char* str);
 
 typedef struct SaveData
 {
-    char paddleColors[2];
-    char ballColor;
-    char miscColor;
-    int highScore;
+    unsigned char paddleColors[2];
+    unsigned char ballColor;
+    unsigned char miscColor;
+    unsigned char maxScore;
 } SaveData;
 
 static Color availableColors[8] =

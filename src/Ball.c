@@ -1,5 +1,4 @@
 #include "Ball.h"
-#include <stdlib.h>
 #include "raymath.h"
 
 char Ball_Update(Ball *const ball)
@@ -22,17 +21,17 @@ char Ball_Update(Ball *const ball)
     ball->position.x += ball->velocity.x * GetFrameTime();
     ball->position.y += ball->velocity.y * GetFrameTime();
 
-    if (ball->position.x < -(SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS))
-    {
-        ball->position.x = SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS;
-        ball->velocity = Vector2Scale(ball->velocity, BALL_DEFAULT_SPEED / (ball->velocity.x));
-        return BALL_PADDLE_ONE_SCORE;
-    }
-
     if (ball->position.x > SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS)
     {
         ball->position.x = -(SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS);
         ball->velocity = Vector2Scale(ball->velocity, BALL_DEFAULT_SPEED / (ball->velocity.x));
+        return BALL_PADDLE_ONE_SCORE;
+    }
+
+    if (ball->position.x < -(SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS))
+    {
+        ball->position.x = SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS;
+        ball->velocity = Vector2Scale(ball->velocity, BALL_DEFAULT_SPEED / -ball->velocity.x);
         return BALL_PADDLE_TWO_SCORE;
     }
 
