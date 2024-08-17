@@ -7,31 +7,31 @@ char Ball_Update(Ball *const ball)
     if (fabsf(ball->velocity.x) > BALL_MAX_SPEED)
         ball->velocity.x = BALL_MAX_SPEED * Sign(ball->velocity.x);
 
-    if (ball->position.y + ball->radius > SCREEN_HEIGHT_IN_UNITS / 2.0f - BORDER_SIZE)
+    if (ball->position.y + BALL_RADIUS > SCREEN_HEIGHT_IN_UNITS / 2.0f - BORDER_SIZE)
     {
-        ball->position.y = SCREEN_HEIGHT_IN_UNITS / 2.0f - BORDER_SIZE - ball->radius;
+        ball->position.y = SCREEN_HEIGHT_IN_UNITS / 2.0f - BORDER_SIZE - BALL_RADIUS;
         ball->velocity.y = -ball->velocity.y;
     }
 
-    if (ball->position.y - ball->radius < BORDER_SIZE - SCREEN_HEIGHT_IN_UNITS / 2.0f)
+    if (ball->position.y - BALL_RADIUS < BORDER_SIZE - SCREEN_HEIGHT_IN_UNITS / 2.0f)
     {
-        ball->position.y = BORDER_SIZE + ball->radius - SCREEN_HEIGHT_IN_UNITS / 2.0f;
+        ball->position.y = BORDER_SIZE + BALL_RADIUS - SCREEN_HEIGHT_IN_UNITS / 2.0f;
         ball->velocity.y = -ball->velocity.y;
     }
 
     ball->position.x += ball->velocity.x * GetFrameTime();
     ball->position.y += ball->velocity.y * GetFrameTime();
 
-    if (ball->position.x < -(SCREEN_WIDTH_IN_UNITS / 2.0f + ball->radius))
+    if (ball->position.x < -(SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS))
     {
-        ball->position.x = SCREEN_WIDTH_IN_UNITS / 2.0f + ball->radius;
+        ball->position.x = SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS;
         ball->velocity = Vector2Scale(ball->velocity, BALL_DEFAULT_SPEED / (ball->velocity.x));
         return BALL_PADDLE_ONE_SCORE;
     }
 
-    if (ball->position.x > SCREEN_WIDTH_IN_UNITS / 2.0f + ball->radius)
+    if (ball->position.x > SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS)
     {
-        ball->position.x = -(SCREEN_WIDTH_IN_UNITS / 2.0f + ball->radius);
+        ball->position.x = -(SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS);
         ball->velocity = Vector2Scale(ball->velocity, BALL_DEFAULT_SPEED / (ball->velocity.x));
         return BALL_PADDLE_TWO_SCORE;
     }
@@ -42,11 +42,11 @@ char Ball_Update(Ball *const ball)
 void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
 {
     const Rectangle ballRect = (Rectangle){
-        ball->position.x - ball->radius, ball->position.y - ball->radius, ball->radius * 2, ball->radius * 2
+        ball->position.x - BALL_RADIUS, ball->position.y - BALL_RADIUS, BALL_RADIUS * 2, BALL_RADIUS * 2
     };
     const Rectangle paddleRect = (Rectangle){
-        paddle->position.x - PADDLE_WIDTH / 2.0f, paddle->position.y - paddle->height / 2.0f, PADDLE_WIDTH,
-        paddle->height
+        paddle->position.x - PADDLE_WIDTH / 2.0f, paddle->position.y - PADDLE_HEIGHT / 2.0f, PADDLE_WIDTH,
+        PADDLE_HEIGHT
     };
 
     if (!CheckCollisionRecs(ballRect, paddleRect))
@@ -63,9 +63,9 @@ void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
     else
     {
         if (ball->position.y > paddle->position.y)
-            ball->position.y = paddle->position.y + paddle->height + ball->radius;
+            ball->position.y = paddle->position.y + PADDLE_HEIGHT + BALL_RADIUS;
         else
-            ball->position.y = paddle->position.y - paddle->height - ball->radius;
+            ball->position.y = paddle->position.y - PADDLE_HEIGHT - BALL_RADIUS;
     }
 
     ball->velocity.x += BALL_SPEED_INCREASE * Sign(ball->velocity.x);
@@ -73,7 +73,7 @@ void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
     const float offset = ball->position.y - paddle->position.y;
     Vector2 normalizedVelocity = Vector2Normalize(ball->velocity);
     normalizedVelocity.y = normalizedVelocity.y * BALL_ANGLE_KEEP + BALL_ANGLE_CHANGE * Sign(offset) * fminf(
-                               fabsf(offset / (paddle->height / 2.0f)), 1);
+                               fabsf(offset / (PADDLE_HEIGHT / 2.0f)), 1);
     normalizedVelocity.y = Clamp(normalizedVelocity.y, -sinf(BALL_MAX_ANGLE), sinf(BALL_MAX_ANGLE));
     normalizedVelocity.x = sqrtf(1 - normalizedVelocity.y * normalizedVelocity.y) * Sign(-ball->velocity.x);
     ball->velocity = Vector2Scale(normalizedVelocity, fabsf(ball->velocity.x / normalizedVelocity.x));
@@ -82,6 +82,6 @@ void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
 void Ball_Draw(const Ball *ball, const Color color)
 {
     DrawCircle((ball->position.x + SCREEN_WIDTH_IN_UNITS / 2.0f) * UNIT_TO_PIXELS,
-               (ball->position.y + SCREEN_HEIGHT_IN_UNITS / 2.0f) * UNIT_TO_PIXELS, ball->radius * UNIT_TO_PIXELS,
+               (ball->position.y + SCREEN_HEIGHT_IN_UNITS / 2.0f) * UNIT_TO_PIXELS, BALL_RADIUS * UNIT_TO_PIXELS,
                color);
 }

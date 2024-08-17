@@ -21,18 +21,18 @@ void Paddle_Update(Paddle *const paddle, unsigned char playerType)
     // if (playerType == PLAYER_CPU)
 
     if (isMovingUp)
-        paddle->position.y -= paddle->movementSpeed * GetFrameTime();
+        paddle->position.y -= PADDLE_MOVE_SPEED * GetFrameTime();
 
 
     if (isMovingDown)
-        paddle->position.y += paddle->movementSpeed * GetFrameTime();
+        paddle->position.y += PADDLE_MOVE_SPEED * GetFrameTime();
 
-    paddle->position.y = Clamp(paddle->position.y, (SCREEN_HEIGHT_IN_UNITS - paddle->height - BORDER_SIZE) / -2.0f, (SCREEN_HEIGHT_IN_UNITS - paddle->height - BORDER_SIZE) / 2.0f);
+    paddle->position.y = Clamp(paddle->position.y, (SCREEN_HEIGHT_IN_UNITS - PADDLE_HEIGHT - BORDER_SIZE) / -2.0f, (SCREEN_HEIGHT_IN_UNITS - PADDLE_HEIGHT - BORDER_SIZE) / 2.0f);
 }
 
 void Paddle_Draw(const Paddle *const paddle, const Color color)
 {
     DrawRectangle((paddle->position.x - (PADDLE_WIDTH - SCREEN_WIDTH_IN_UNITS) / 2.0f) * UNIT_TO_PIXELS,
-                  (paddle->position.y - (paddle->height - SCREEN_HEIGHT_IN_UNITS) / 2.0f) * UNIT_TO_PIXELS,
-                  PADDLE_WIDTH * UNIT_TO_PIXELS, paddle->height * UNIT_TO_PIXELS, color);
+                  (paddle->position.y - (PADDLE_HEIGHT - SCREEN_HEIGHT_IN_UNITS) / 2.0f) * UNIT_TO_PIXELS,
+                  PADDLE_WIDTH * UNIT_TO_PIXELS, PADDLE_HEIGHT * UNIT_TO_PIXELS, color);
 }

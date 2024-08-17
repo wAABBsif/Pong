@@ -9,8 +9,8 @@
 typedef struct GameData
 {
     Paddle paddles[2];
-    Ball ball;
     SaveData saveData;
+    Ball ball;
 } GameData;
 
 GameData* game;
@@ -25,9 +25,9 @@ void Game()
 
     game = malloc(sizeof(GameData));
 
-    game->paddles[0] = (Paddle){DEFAULT_EDGE_DISTANCE - SCREEN_WIDTH_IN_UNITS / 2, 0, DEFAULT_PADDLE_HEIGHT, DEFAULT_MOVE_SPEED};
-    game->paddles[1] = (Paddle){SCREEN_WIDTH_IN_UNITS / 2 - DEFAULT_EDGE_DISTANCE, 0, DEFAULT_PADDLE_HEIGHT, DEFAULT_MOVE_SPEED};
-    game->ball = (Ball){0, 0, BALL_DEFAULT_SPEED, GetRandomValue(-BALL_DEFAULT_SPEED, BALL_DEFAULT_SPEED), BALL_DEFAULT_RADIUS};
+    game->paddles[0] = (Paddle){PADDLE_EDGE_DISTANCE - SCREEN_WIDTH_IN_UNITS / 2, 0};
+    game->paddles[1] = (Paddle){SCREEN_WIDTH_IN_UNITS / 2 - PADDLE_EDGE_DISTANCE, 0};
+    game->ball = (Ball){0, 0, BALL_DEFAULT_SPEED, GetRandomValue(-BALL_DEFAULT_SPEED, BALL_DEFAULT_SPEED)};
 
     game->saveData.paddleColors[0] = 1;
     game->saveData.paddleColors[1] = 7;
