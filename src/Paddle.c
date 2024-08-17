@@ -18,20 +18,14 @@ void Paddle_Update(Paddle *const paddle, unsigned char playerType)
         isMovingDown = IsKeyDown(KEY_DOWN);
     }
 
-    if (playerType == PLAYER_CPU)
-    {
-        isMovingUp = true;
-    }
+    // if (playerType == PLAYER_CPU)
 
     if (isMovingUp)
-    {
         paddle->position.y -= paddle->movementSpeed * GetFrameTime();
-    }
+
 
     if (isMovingDown)
-    {
         paddle->position.y += paddle->movementSpeed * GetFrameTime();
-    }
 
     paddle->position.y = Clamp(paddle->position.y, (SCREEN_HEIGHT_IN_UNITS - paddle->height - BORDER_SIZE) / -2.0f, (SCREEN_HEIGHT_IN_UNITS - paddle->height - BORDER_SIZE) / 2.0f);
 }
