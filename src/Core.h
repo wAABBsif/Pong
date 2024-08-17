@@ -11,3 +11,23 @@
 #define BORDER_SIZE 0.2f
 
 float Sign(float n);
+
+typedef struct SaveData
+{
+    char paddleColors[2];
+    char ballColor;
+    char miscColor;
+    int highScore;
+} SaveData;
+
+static Color availableColors[8] =
+{
+    RAYWHITE,
+    (Color){0, 115, 255, 255},
+    (Color){0, 0, 160, 255},
+    VIOLET,
+    (Color){0, 200, 45, 255},
+    YELLOW,
+    ORANGE,
+    (Color){255, 70, 70, 255}
+};
