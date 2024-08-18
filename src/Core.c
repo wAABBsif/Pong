@@ -24,3 +24,8 @@ void ScoreToString(int score, char* str)
     str[0] = score + '0';
     str[1] = 0;
 }
+
+float GetRandomFloat(const float min, const float max)
+{
+    return GetRandomValue(min * 1000, max * 1000) / (float)1000;
+}

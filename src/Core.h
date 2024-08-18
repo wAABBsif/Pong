@@ -11,7 +11,19 @@
 #define BORDER_SIZE 0.2f
 
 float Sign(float n);
+float GetRandomFloat(float min, float max);
 void ScoreToString(int score, char* str);
+
+typedef struct Paddle
+{
+    Vector2 position;
+} Paddle;
+
+typedef struct Ball
+{
+    Vector2 position;
+    Vector2 velocity;
+} Ball;
 
 typedef struct SaveData
 {
@@ -21,7 +33,7 @@ typedef struct SaveData
     unsigned char maxScore;
 } SaveData;
 
-static Color availableColors[8] =
+const static Color availableColors[] =
 {
     RAYWHITE,
     (Color){0, 115, 255, 255},

@@ -14,12 +14,7 @@
 #define BALL_PADDLE_ONE_SCORE 1
 #define BALL_PADDLE_TWO_SCORE 2
 
-typedef struct Ball
-{
-    Vector2 position;
-    Vector2 velocity;
-} Ball;
-
 char Ball_Update(Ball* const ball);
 void Ball_Draw(const Ball* ball, const Color color);
 void Ball_ApplyCollision(Ball* const ball, const Paddle* paddle);
+float Ball_PredictPositionY(const Ball* ball, float positionX);

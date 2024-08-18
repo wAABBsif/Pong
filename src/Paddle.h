@@ -1,19 +1,17 @@
 #pragma once
+#include "Ball.h"
 #include "Core.h"
 
 #define PADDLE_WIDTH 0.2f
 #define PADDLE_HEIGHT 1.5f
 #define PADDLE_EDGE_DISTANCE 0.5f
 #define PADDLE_MOVE_SPEED 8.0f
+#define CPU_MAX_ERROR 1.0f
 
-#define PLAYER_CPU 0
-#define PLAYER_WASD 1
-#define PLAYER_ARROWS 2
+char Paddle_GetWASD();
+char Paddle_GetArrows();
+char Paddle_GetCPU(float paddlePosition, float ballPosition);
 
-typedef struct Paddle
-{
-    Vector2 position;
-} Paddle;
-
-void Paddle_Update(Paddle* const paddle, unsigned char playerType);
+void Paddle_RecalcError();
+void Paddle_Update(Paddle *const paddle, char movementDir);
 void Paddle_Draw(const Paddle* paddle, const Color color);

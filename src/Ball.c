@@ -51,6 +51,8 @@ void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
     if (!CheckCollisionRecs(ballRect, paddleRect))
         return;
 
+    Paddle_RecalcError();
+
     if (ballRect.x + ballRect.width - ball->velocity.x * GetFrameTime() < paddleRect.x && ball->velocity.x > 0)
     {
         ball->position.x = paddle->position.x - PADDLE_WIDTH;
@@ -83,4 +85,9 @@ void Ball_Draw(const Ball *ball, const Color color)
     DrawCircle((ball->position.x + SCREEN_WIDTH_IN_UNITS / 2.0f) * UNIT_TO_PIXELS,
                (ball->position.y + SCREEN_HEIGHT_IN_UNITS / 2.0f) * UNIT_TO_PIXELS, BALL_RADIUS * UNIT_TO_PIXELS,
                color);
+}
+
+float Ball_PredictPositionY(const Ball* ball, float positionX)
+{
+    return ball->position.y + ball->velocity.y / ball->velocity.x * (positionX - ball->position.x);
 }

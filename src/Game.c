@@ -1,4 +1,7 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
 #include "Core.h"
 #include "Paddle.h"
 #include "Ball.h"
@@ -7,11 +10,15 @@
 #define TEXT_Y_POS 0.5f
 #define TEXT_SIZE 1.0f
 
+#define GAMEMODE_1_PLAYER 0
+#define GAMEMODE_2_PLAYER 1
+
 typedef struct GameData
 {
     Paddle paddles[2];
     Ball ball;
     int scores[2];
+    char gameMode;
     SaveData saveData;
     char scoreTextOne[3];
     char scoreTextTwo[3];
@@ -24,6 +31,7 @@ static void Draw();
 
 void Game()
 {
+    SetRandomSeed(time(NULL));
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_WIDTH / DEFAULT_ASPECT_RATIO, "Pong");
 
@@ -31,16 +39,16 @@ void Game()
 
     game->paddles[0] = (Paddle){PADDLE_EDGE_DISTANCE - SCREEN_WIDTH_IN_UNITS / 2, 0};
     game->paddles[1] = (Paddle){SCREEN_WIDTH_IN_UNITS / 2 - PADDLE_EDGE_DISTANCE, 0};
-    game->ball = (Ball){0, 0, BALL_DEFAULT_SPEED, GetRandomValue(-BALL_DEFAULT_SPEED, BALL_DEFAULT_SPEED)};
+    game->ball = (Ball){0, 0, BALL_DEFAULT_SPEED, GetRandomFloat(-BALL_DEFAULT_SPEED, BALL_DEFAULT_SPEED)};
     game->scores[0] = 0;
     game->scores[1] = 0;
+    game->gameMode = 0;
 
     game->saveData.paddleColors[0] = 1;
     game->saveData.paddleColors[1] = 7;
     game->saveData.ballColor = 0;
     game->saveData.miscColor = 0;
     game->saveData.maxScore = 8;
-
     while (!WindowShouldClose())
     {
         Update();
@@ -49,14 +57,16 @@ void Game()
         EndDrawing();
     }
 
+    free(game);
+
     CloseWindow();
 }
 
 static void Update()
 {
-    Paddle_Update(&game->paddles[0], PLAYER_WASD);
-    if (&game->paddles[1])
-        Paddle_Update(&game->paddles[1], PLAYER_ARROWS);
+    Paddle_Update(&game->paddles[0], Paddle_GetWASD());
+    float player2Movement = game->gameMode == GAMEMODE_1_PLAYER ? Paddle_GetCPU(game->paddles[1].position.y, Ball_PredictPositionY(&game->ball, game->paddles[1].position.x)) : Paddle_GetArrows();
+    Paddle_Update(&game->paddles[1], player2Movement);
     switch (Ball_Update(&game->ball))
     {
         case BALL_PADDLE_ONE_SCORE:
@@ -80,8 +90,7 @@ static void Draw()
 {
     ClearBackground(BACKGROUND_COLOR);
     Paddle_Draw(&game->paddles[0], availableColors[game->saveData.paddleColors[0]]);
-    if (&game->paddles[1])
-        Paddle_Draw(&game->paddles[1], availableColors[game->saveData.paddleColors[1]]);
+    Paddle_Draw(&game->paddles[1], availableColors[game->saveData.paddleColors[1]]);
     Ball_Draw(&game->ball, availableColors[game->saveData.ballColor]);
     DrawRectangle(0, 0, GetScreenWidth(), UNIT_TO_PIXELS * BORDER_SIZE, availableColors[game->saveData.miscColor]);
     DrawRectangle(0, GetScreenHeight() - UNIT_TO_PIXELS * BORDER_SIZE, GetScreenWidth(), UNIT_TO_PIXELS * BORDER_SIZE, availableColors[game->saveData.miscColor]);
