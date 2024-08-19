@@ -51,8 +51,6 @@ void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
     if (!CheckCollisionRecs(ballRect, paddleRect))
         return;
 
-    Paddle_RecalcError();
-
     if (ballRect.x + ballRect.width - ball->velocity.x * GetFrameTime() < paddleRect.x && ball->velocity.x > 0)
     {
         ball->position.x = paddle->position.x - PADDLE_WIDTH;
@@ -78,6 +76,7 @@ void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
     normalizedVelocity.y = Clamp(normalizedVelocity.y, -sinf(BALL_MAX_ANGLE), sinf(BALL_MAX_ANGLE));
     normalizedVelocity.x = sqrtf(1 - normalizedVelocity.y * normalizedVelocity.y) * Sign(-ball->velocity.x);
     ball->velocity = Vector2Scale(normalizedVelocity, fabsf(ball->velocity.x / normalizedVelocity.x));
+    Paddle_RecalcError(ball);
 }
 
 void Ball_Draw(const Ball *ball, const Color color)

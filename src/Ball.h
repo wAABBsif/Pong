@@ -7,7 +7,7 @@
 #define BALL_MAX_SPEED 12.0f
 #define BALL_RADIUS 0.3f
 #define BALL_MAX_ANGLE 60.0f * DEG2RAD
-#define BALL_ANGLE_CHANGE 0.5
+#define BALL_ANGLE_CHANGE 0.8
 #define BALL_ANGLE_KEEP 0.8
 
 #define BALL_NO_SCORE 0

@@ -29,3 +29,8 @@ float GetRandomFloat(const float min, const float max)
 {
     return GetRandomValue(min * 1000, max * 1000) / (float)1000;
 }
+
+float InverseLerp(const float min, const float max, const float value)
+{
+    return (value - min) / (max - min);
+}

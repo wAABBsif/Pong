@@ -30,7 +30,7 @@ char Paddle_GetCPU(float paddlePosition, float ballPosition)
 {
     ballPosition += cpuError;
 
-    if (fabsf(paddlePosition - ballPosition) < PADDLE_HEIGHT / 2)
+    if (fabsf(paddlePosition - ballPosition) < PADDLE_HEIGHT / 4)
         return 0;
 
     if (paddlePosition < ballPosition)
@@ -39,9 +39,10 @@ char Paddle_GetCPU(float paddlePosition, float ballPosition)
     return -1;
 }
 
-void Paddle_RecalcError()
+void Paddle_RecalcError(const Ball* ball)
 {
-    cpuError = GetRandomFloat(-CPU_MAX_ERROR, CPU_MAX_ERROR);
+    const float error = Lerp(CPU_MIN_ERROR, CPU_MAX_ERROR, InverseLerp(BALL_DEFAULT_SPEED, BALL_MAX_SPEED, fabsf(ball->velocity.x)));
+    cpuError = GetRandomFloat(-error, error);
 }
 
 void Paddle_Update(Paddle *const paddle, char movementDir)

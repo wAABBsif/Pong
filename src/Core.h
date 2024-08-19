@@ -12,6 +12,7 @@
 
 float Sign(float n);
 float GetRandomFloat(float min, float max);
+float InverseLerp(const float min, const float max, const float value);
 void ScoreToString(int score, char* str);
 
 typedef struct Paddle

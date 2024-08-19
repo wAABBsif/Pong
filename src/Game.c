@@ -13,6 +13,11 @@
 #define GAMEMODE_1_PLAYER 0
 #define GAMEMODE_2_PLAYER 1
 
+#define GAMESTATE_MENU 0
+#define GAMESTATE_SETTINGS 1
+#define GAMESTATE_GAME 2
+#define GAMESTATE_END 3
+
 typedef struct GameData
 {
     Paddle paddles[2];
