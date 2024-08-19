@@ -10,10 +10,18 @@
 
 #define BORDER_SIZE 0.2f
 
+#define GAMESTATE_MENU 0
+#define GAMESTATE_SETTINGS 1
+#define GAMESTATE_GAMEPLAY 2
+#define GAMESTATE_END 3
+#define GAMESTATE_COUNT 4
+
 float Sign(float n);
 float GetRandomFloat(float min, float max);
 float InverseLerp(const float min, const float max, const float value);
 void ScoreToString(int score, char* str);
+
+typedef struct GameData GameData;
 
 typedef struct Paddle
 {
@@ -34,6 +42,12 @@ typedef struct SaveData
     unsigned char maxScore;
 } SaveData;
 
+typedef struct GameState
+{
+    void (*Update)(GameData* game);
+    void (*Draw)(const GameData* game);
+} GameState;
+
 const static Color availableColors[] =
 {
     RAYWHITE,
@@ -44,4 +58,17 @@ const static Color availableColors[] =
     YELLOW,
     ORANGE,
     (Color){255, 70, 70, 255}
+};
+
+struct GameData
+{
+    GameState gameStates[GAMESTATE_COUNT];
+    Paddle paddles[2];
+    Ball ball;
+    int scores[2];
+    char gameState;
+    char playerCount;
+    SaveData saveData;
+    char scoreTextOne[3];
+    char scoreTextTwo[3];
 };

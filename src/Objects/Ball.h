@@ -1,6 +1,5 @@
 #pragma once
-#include "Core.h"
-#include "Paddle.h"
+#include "../Core.h"
 
 #define BALL_DEFAULT_SPEED 4.0f
 #define BALL_SPEED_INCREASE 1.0f

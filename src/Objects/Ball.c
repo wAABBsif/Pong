@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "Paddle.h"
 #include "raymath.h"
 
 char Ball_Update(Ball *const ball)
@@ -40,10 +41,12 @@ char Ball_Update(Ball *const ball)
 
 void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
 {
-    const Rectangle ballRect = (Rectangle){
+    const Rectangle ballRect = (Rectangle)
+    {
         ball->position.x - BALL_RADIUS, ball->position.y - BALL_RADIUS, BALL_RADIUS * 2, BALL_RADIUS * 2
     };
-    const Rectangle paddleRect = (Rectangle){
+    const Rectangle paddleRect = (Rectangle)
+    {
         paddle->position.x - PADDLE_WIDTH / 2.0f, paddle->position.y - PADDLE_HEIGHT / 2.0f, PADDLE_WIDTH,
         PADDLE_HEIGHT
     };

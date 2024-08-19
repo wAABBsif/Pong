@@ -1,0 +1,38 @@
+#include "Gameplay.h"
+#include "../Objects/Ball.h"
+#include "../Objects/Paddle.h"
+
+void Gameplay_Update(GameData* game)
+{
+    Paddle_Update(&game->paddles[0], Paddle_GetWASD());
+    float player2Movement = game->playerCount == 1 ? Paddle_GetCPU(game->paddles[1].position.y, Ball_PredictPositionY(&game->ball, game->paddles[1].position.x)) : Paddle_GetArrows();
+    Paddle_Update(&game->paddles[1], player2Movement);
+    switch (Ball_Update(&game->ball))
+    {
+        case BALL_PADDLE_ONE_SCORE:
+            game->scores[0]++;
+        break;
+        case BALL_PADDLE_TWO_SCORE:
+            game->scores[1]++;
+        break;
+        default:
+            break;
+    }
+    ScoreToString(game->scores[0], game->scoreTextOne);
+    ScoreToString(game->scores[1], game->scoreTextTwo);
+    if (game->ball.velocity.x < 0)
+        Ball_ApplyCollision(&game->ball, &game->paddles[0]);
+    if (&game->paddles[1] && game->ball.velocity.x > 0)
+        Ball_ApplyCollision(&game->ball, &game->paddles[1]);
+}
+
+void Gameplay_Draw(const GameData* game)
+{
+    Paddle_Draw(&game->paddles[0], availableColors[game->saveData.paddleColors[0]]);
+    Paddle_Draw(&game->paddles[1], availableColors[game->saveData.paddleColors[1]]);
+    Ball_Draw(&game->ball, availableColors[game->saveData.ballColor]);
+    DrawRectangle(0, 0, GetScreenWidth(), UNIT_TO_PIXELS * BORDER_SIZE, availableColors[game->saveData.miscColor]);
+    DrawRectangle(0, GetScreenHeight() - UNIT_TO_PIXELS * BORDER_SIZE, GetScreenWidth(), UNIT_TO_PIXELS * BORDER_SIZE, availableColors[game->saveData.miscColor]);
+    DrawText(game->scoreTextOne, (GetScreenWidth() >> 2) - (MeasureText(game->scoreTextOne, SCORE_TEXT_SIZE * UNIT_TO_PIXELS) >> 1), SCORE_TEXT_Y_POS * UNIT_TO_PIXELS, SCORE_TEXT_SIZE * UNIT_TO_PIXELS, availableColors[game->saveData.miscColor]);
+    DrawText(game->scoreTextTwo, (GetScreenWidth() >> 2) * 3 - (MeasureText(game->scoreTextTwo, SCORE_TEXT_SIZE * UNIT_TO_PIXELS) >> 1), SCORE_TEXT_Y_POS * UNIT_TO_PIXELS, SCORE_TEXT_SIZE * UNIT_TO_PIXELS, availableColors[game->saveData.miscColor]);
+}
