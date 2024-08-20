@@ -3,6 +3,7 @@
 #include <time.h>
 
 #include "Core.h"
+#include "SaveData.h"
 #include "Objects/Paddle.h"
 #include "Objects/Ball.h"
 #include "States/Gameplay.h"
@@ -34,6 +35,8 @@ void Game()
     game->saveData.ballColor = 0;
     game->saveData.miscColor = 0;
     game->saveData.maxScore = 8;
+
+    LoadPlayerData(&game->saveData);
 
     SetupGameStates();
 

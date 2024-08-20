@@ -9,8 +9,8 @@
 #define CPU_MIN_ERROR 0.5f
 #define CPU_MAX_ERROR 1.2f
 
-char Paddle_GetWASD();
-char Paddle_GetArrows();
+char Paddle_GetWASD(void);
+char Paddle_GetArrows(void);
 char Paddle_GetCPU(float paddlePosition, float ballPosition);
 
 void Paddle_RecalcError(const Ball* ball);

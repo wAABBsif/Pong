@@ -4,7 +4,7 @@
 
 static float cpuError = 0;
 
-char Paddle_GetWASD()
+char Paddle_GetWASD(void)
 {
     if (IsKeyDown(KEY_S))
         return 1;
@@ -15,7 +15,7 @@ char Paddle_GetWASD()
     return 0;
 }
 
-char Paddle_GetArrows()
+char Paddle_GetArrows(void)
 {
     if (IsKeyDown(KEY_DOWN))
         return 1;
