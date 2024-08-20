@@ -84,8 +84,8 @@ void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
 
 void Ball_Draw(const Ball *ball, const Color color)
 {
-    DrawCircle((ball->position.x + SCREEN_WIDTH_IN_UNITS / 2.0f) * UNIT_TO_PIXELS,
-               (ball->position.y + SCREEN_HEIGHT_IN_UNITS / 2.0f) * UNIT_TO_PIXELS, BALL_RADIUS * UNIT_TO_PIXELS,
+    DrawCircle((ball->position.x + SCREEN_WIDTH_IN_UNITS / 2.0f) * UNITS_TO_PIXELS,
+               (ball->position.y + SCREEN_HEIGHT_IN_UNITS / 2.0f) * UNITS_TO_PIXELS, BALL_RADIUS * UNITS_TO_PIXELS,
                color);
 }
 

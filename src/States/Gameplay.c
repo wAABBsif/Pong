@@ -2,7 +2,7 @@
 #include "../Objects/Ball.h"
 #include "../Objects/Paddle.h"
 
-char playerCount = 1;
+unsigned char playerCount = 1;
 
 void Gameplay_Start(GameData* game)
 {
@@ -38,8 +38,8 @@ void Gameplay_Draw(const GameData* game)
     Paddle_Draw(&game->paddles[0], availableColors[game->saveData.paddleColors[0]]);
     Paddle_Draw(&game->paddles[1], availableColors[game->saveData.paddleColors[1]]);
     Ball_Draw(&game->ball, availableColors[game->saveData.ballColor]);
-    DrawRectangle(0, 0, GetScreenWidth(), UNIT_TO_PIXELS * BORDER_SIZE, availableColors[game->saveData.miscColor]);
-    DrawRectangle(0, GetScreenHeight() - UNIT_TO_PIXELS * BORDER_SIZE, GetScreenWidth(), UNIT_TO_PIXELS * BORDER_SIZE, availableColors[game->saveData.miscColor]);
-    DrawText(game->scoreTextOne, (GetScreenWidth() >> 2) - (MeasureText(game->scoreTextOne, SCORE_TEXT_SIZE * UNIT_TO_PIXELS) >> 1), SCORE_TEXT_Y_POS * UNIT_TO_PIXELS, SCORE_TEXT_SIZE * UNIT_TO_PIXELS, availableColors[game->saveData.miscColor]);
-    DrawText(game->scoreTextTwo, (GetScreenWidth() >> 2) * 3 - (MeasureText(game->scoreTextTwo, SCORE_TEXT_SIZE * UNIT_TO_PIXELS) >> 1), SCORE_TEXT_Y_POS * UNIT_TO_PIXELS, SCORE_TEXT_SIZE * UNIT_TO_PIXELS, availableColors[game->saveData.miscColor]);
+    DrawRectangle(0, 0, GetScreenWidth(), UNITS_TO_PIXELS * BORDER_SIZE, availableColors[game->saveData.miscColor]);
+    DrawRectangle(0, GetScreenHeight() - UNITS_TO_PIXELS * BORDER_SIZE, GetScreenWidth(), UNITS_TO_PIXELS * BORDER_SIZE, availableColors[game->saveData.miscColor]);
+    DrawText(game->scoreTextOne, (GetScreenWidth() >> 2) - (MeasureText(game->scoreTextOne, SCORE_TEXT_SIZE * UNITS_TO_PIXELS) >> 1), SCORE_TEXT_Y_POS * UNITS_TO_PIXELS, SCORE_TEXT_SIZE * UNITS_TO_PIXELS, availableColors[game->saveData.miscColor]);
+    DrawText(game->scoreTextTwo, (GetScreenWidth() >> 2) * 3 - (MeasureText(game->scoreTextTwo, SCORE_TEXT_SIZE * UNITS_TO_PIXELS) >> 1), SCORE_TEXT_Y_POS * UNITS_TO_PIXELS, SCORE_TEXT_SIZE * UNITS_TO_PIXELS, availableColors[game->saveData.miscColor]);
 }

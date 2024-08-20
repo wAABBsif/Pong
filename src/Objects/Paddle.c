@@ -58,7 +58,7 @@ void Paddle_Update(Paddle *const paddle, char movementDir)
 
 void Paddle_Draw(const Paddle *const paddle, const Color color)
 {
-    DrawRectangle((paddle->position.x - (PADDLE_WIDTH - SCREEN_WIDTH_IN_UNITS) / 2.0f) * UNIT_TO_PIXELS,
-                  (paddle->position.y - (PADDLE_HEIGHT - SCREEN_HEIGHT_IN_UNITS) / 2.0f) * UNIT_TO_PIXELS,
-                  PADDLE_WIDTH * UNIT_TO_PIXELS, PADDLE_HEIGHT * UNIT_TO_PIXELS, color);
+    DrawRectangle((paddle->position.x - (PADDLE_WIDTH - SCREEN_WIDTH_IN_UNITS) / 2.0f) * UNITS_TO_PIXELS,
+                  (paddle->position.y - (PADDLE_HEIGHT - SCREEN_HEIGHT_IN_UNITS) / 2.0f) * UNITS_TO_PIXELS,
+                  PADDLE_WIDTH * UNITS_TO_PIXELS, PADDLE_HEIGHT * UNITS_TO_PIXELS, color);
 }

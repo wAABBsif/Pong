@@ -50,8 +50,6 @@ void Game()
         EndDrawing();
     }
 
-    free(game);
-
     CloseWindow();
 }
 
