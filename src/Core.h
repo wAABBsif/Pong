@@ -16,12 +16,13 @@
 #define GAMESTATE_END 3
 #define GAMESTATE_COUNT 4
 
+typedef struct GameData GameData;
+
 float Sign(float n);
 float GetRandomFloat(float min, float max);
 float InverseLerp(const float min, const float max, const float value);
 void ScoreToString(int score, char* str);
-
-typedef struct GameData GameData;
+void SwitchState(GameData* game, char newState);
 
 typedef struct Paddle
 {
@@ -44,6 +45,7 @@ typedef struct SaveData
 
 typedef struct GameState
 {
+    void (*Start)(GameData* game);
     void (*Update)(GameData* game);
     void (*Draw)(const GameData* game);
 } GameState;
@@ -67,7 +69,6 @@ struct GameData
     Ball ball;
     int scores[2];
     char gameState;
-    char playerCount;
     SaveData saveData;
     char scoreTextOne[3];
     char scoreTextTwo[3];
