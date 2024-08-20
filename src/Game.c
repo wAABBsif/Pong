@@ -4,11 +4,8 @@
 
 #include "Core.h"
 #include "SaveData.h"
-
 #include "Objects/Paddle.h"
 #include "Objects/Ball.h"
-
-#include "States/Menu.h"
 #include "States/Gameplay.h"
 
 #define BACKGROUND_COLOR (Color){0x08, 0x08, 0x08, 0x08}
@@ -30,7 +27,8 @@ void Game()
     game->ball = (Ball){0, 0, BALL_DEFAULT_SPEED, GetRandomFloat(-BALL_DEFAULT_SPEED, BALL_DEFAULT_SPEED)};
     game->scores[0] = 0;
     game->scores[1] = 0;
-    SwitchState(game, GAMESTATE_GAMEPLAY);
+    game->playerCount = 1;
+    game->gameState = GAMESTATE_GAMEPLAY;
 
     game->saveData.paddleColors[0] = 1;
     game->saveData.paddleColors[1] = 7;
@@ -58,14 +56,12 @@ void Game()
 
 void SetupGameStates()
 {
-    game->gameStates[GAMESTATE_MENU].Start = Menu_Start;
-    game->gameStates[GAMESTATE_MENU].Update = Menu_Update;
-    game->gameStates[GAMESTATE_MENU].Draw = Menu_Draw;
+    // game->gameStates[GAMESTATE_MENU].Update =
+    // game->gameStates[GAMESTATE_MENU].Draw =
 
     // game->gameStates[GAMESTATE_SETTINGS].Update =
     // game->gameStates[GAMESTATE_SETTINGS].Draw =
 
-    game->gameStates[GAMESTATE_GAMEPLAY].Start = Gameplay_Update;
     game->gameStates[GAMESTATE_GAMEPLAY].Update = Gameplay_Update;
     game->gameStates[GAMESTATE_GAMEPLAY].Draw = Gameplay_Draw;
 

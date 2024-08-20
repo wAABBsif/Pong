@@ -34,9 +34,3 @@ float InverseLerp(const float min, const float max, const float value)
 {
     return (value - min) / (max - min);
 }
-
-void SwitchState(GameData* game, char newState)
-{
-    game->gameState = newState;
-    game->gameStates[game->gameState].Start(game);
-}
