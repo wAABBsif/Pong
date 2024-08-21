@@ -4,6 +4,8 @@
 
 void Gameplay_Start(GameData* game)
 {
+    game->scores[0] = 0;
+    game->scores[1] = 0;
     return;
 }
 
