@@ -39,7 +39,7 @@ void Game()
     game->saveData.paddleColors[1] = 7;
     game->saveData.ballColor = 0;
     game->saveData.miscColor = 0;
-    game->saveData.maxScore = 1;
+    game->saveData.maxScore = 5;
 
     LoadPlayerData(&game->saveData);
     SetupGameStates();
@@ -51,6 +51,8 @@ void Game()
         BeginDrawing();
         ClearBackground(BACKGROUND_COLOR);
         game->gameStates[game->gameState].Draw(game);
+        if (IsKeyDown(KEY_F))
+            DrawFPS(4,4);
         EndDrawing();
     }
 
