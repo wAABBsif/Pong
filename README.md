@@ -1,7 +1,6 @@
 Pong
 ====
-
-A recreation of the 1972 arcade game in Raylib.
+**A recreation of the 1972 arcade game in Raylib.**
 
 Features
 --------
@@ -9,6 +8,7 @@ Features
 - 2-player mode to play against another player
 - Change game colors and the amount of score needed to win
 - Settings are persistent between different sessions
+- Support for different frame rates and aspect ratios
 
 Controls
 --------
