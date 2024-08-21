@@ -2,7 +2,7 @@
 #include "../SaveData.h"
 #include "raymath.h"
 
-char* settingsTexts[] =
+static const char* const settings_textOptions[] =
 {
     "Left Paddle Color",
     "Right Paddle Color",
@@ -52,9 +52,9 @@ void Settings_Draw(const GameData* game)
         Color c = availableColors[((char*)&game->saveData)[i]];
         if (i != game->menuSelection)
             c = (Color){c.r / 2, c.g / 2, c.b / 2, c.a};
-        DrawText(settingsTexts[i], SETTINGS_TEXT_MARGIN * GetScreenWidth(), (SETTINGS_TEXT_START_POSITION + i * SETTINGS_TEXT_SPACING) * GetScreenHeight(), SETTINGS_TEXT_SIZE * GetScreenWidth(), c);
+        DrawText(settings_textOptions[i], SETTINGS_TEXT_MARGIN * GetScreenWidth(), (SETTINGS_TEXT_START_POSITION + i * SETTINGS_TEXT_SPACING) * GetScreenHeight(), SETTINGS_TEXT_SIZE * GetScreenWidth(), c);
     }
 
     for (int i = 4; i < 6; i++)
-        DrawText(TextFormat(settingsTexts[i], game->saveData.maxScore), SETTINGS_TEXT_MARGIN * GetScreenWidth(), (SETTINGS_TEXT_START_POSITION + i * SETTINGS_TEXT_SPACING) * GetScreenHeight(), SETTINGS_TEXT_SIZE * GetScreenWidth(), i == game->menuSelection ? YELLOW : RAYWHITE);
+        DrawText(TextFormat(settings_textOptions[i], game->saveData.maxScore), SETTINGS_TEXT_MARGIN * GetScreenWidth(), (SETTINGS_TEXT_START_POSITION + i * SETTINGS_TEXT_SPACING) * GetScreenHeight(), SETTINGS_TEXT_SIZE * GetScreenWidth(), i == game->menuSelection ? YELLOW : RAYWHITE);
 }

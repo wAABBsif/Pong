@@ -1,31 +1,32 @@
 #include "End.h"
+#include "Gameplay.h"
 
-const char* const endGameTexts[] =
+static const char* const end_textLines[] =
 {
     "Player 1 has won!",
     "Player 2 has won!",
     "CPU has won!"
 };
 
-float endGameTextPositions[sizeof(endGameTexts) / sizeof(char*)];
-static float timer;
+static float end_textPositions[sizeof(end_textLines) / sizeof(char*)];
+static float end_timer;
 
 void End_Start(GameData* game)
 {
-    for (int i = 0; i < sizeof(endGameTexts) / sizeof(char*); i++)
-        endGameTextPositions[i] = 0.5f - MeasureText(endGameTexts[i], END_TEXT_SIZE * GetScreenWidth()) / (float)GetScreenWidth() / 2;
-    timer = END_WAIT_TIME;
+    for (int i = 0; i < sizeof(end_textLines) / sizeof(char*); i++)
+        end_textPositions[i] = 0.5f - MeasureText(end_textLines[i], END_TEXT_SIZE * GetScreenWidth()) / (float)GetScreenWidth() / 2;
+    end_timer = END_WAIT_TIME;
 }
 
 void End_Update(GameData* game)
 {
-    timer -= GetFrameTime();
-    if (timer <= 0)
+    end_timer -= GetFrameTime();
+    if (end_timer <= 0)
         SwitchState(game, GAMESTATE_MENU);
 }
 
 void End_Draw(const GameData* game)
 {
-    char index = game->scores[0] > game->scores[1] ? 0 : game->playerCount == 2 ? 1 : 2;
-    DrawText(endGameTexts[index], endGameTextPositions[index] * GetScreenWidth(), GetScreenHeight() / 2, END_TEXT_SIZE * GetScreenWidth(), availableColors[game->saveData.miscColor]);
+    const char index = game->scores[0] > game->scores[1] ? 0 : game->playerCount == 2 ? 1 : 2;
+    DrawText(end_textLines[index], end_textPositions[index] * GetScreenWidth(), GetScreenHeight() / 2, END_TEXT_SIZE * GetScreenWidth(), availableColors[game->saveData.miscColor]);
 }

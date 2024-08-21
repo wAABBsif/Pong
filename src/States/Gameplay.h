@@ -7,3 +7,4 @@
 void Gameplay_Start(GameData* game);
 void Gameplay_Update(GameData* game);
 void Gameplay_Draw(const GameData* game);
+void Gameplay_Reset(GameData* game);

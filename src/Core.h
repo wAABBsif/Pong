@@ -13,8 +13,9 @@
 #define GAMESTATE_MENU 0
 #define GAMESTATE_SETTINGS 1
 #define GAMESTATE_GAMEPLAY 2
-#define GAMESTATE_END 3
-#define GAMESTATE_COUNT 4
+#define GAMESTATE_PAUSE 3
+#define GAMESTATE_END 4
+#define GAMESTATE_COUNT 5
 
 typedef struct GameData GameData;
 
