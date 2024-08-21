@@ -16,10 +16,20 @@ void Gameplay_Update(GameData* game)
     {
         case BALL_PADDLE_ONE_SCORE:
             game->scores[0]++;
-        break;
+            if (game->scores[0] >= game->saveData.maxScore)
+            {
+                SwitchState(game,GAMESTATE_END);
+                return;
+            }
+            break;
         case BALL_PADDLE_TWO_SCORE:
             game->scores[1]++;
-        break;
+            if (game->scores[1] >= game->saveData.maxScore)
+            {
+                SwitchState(game,GAMESTATE_END);
+                return;
+            }
+            break;
         default:
             break;
     }

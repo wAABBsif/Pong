@@ -9,7 +9,9 @@
 #include "Objects/Ball.h"
 
 #include "States/Menu.h"
+#include "States/Settings.h"
 #include "States/Gameplay.h"
+#include "States/End.h"
 
 #define BACKGROUND_COLOR (Color){0x08, 0x08, 0x08, 0x08}
 
@@ -37,7 +39,7 @@ void Game()
     game->saveData.paddleColors[1] = 7;
     game->saveData.ballColor = 0;
     game->saveData.miscColor = 0;
-    game->saveData.maxScore = 8;
+    game->saveData.maxScore = 1;
 
     LoadPlayerData(&game->saveData);
     SetupGameStates();
@@ -61,13 +63,15 @@ void SetupGameStates()
     game->gameStates[GAMESTATE_MENU].Update = Menu_Update;
     game->gameStates[GAMESTATE_MENU].Draw = Menu_Draw;
 
-    // game->gameStates[GAMESTATE_SETTINGS].Update =
-    // game->gameStates[GAMESTATE_SETTINGS].Draw =
+    game->gameStates[GAMESTATE_SETTINGS].Start = Settings_Start;
+    game->gameStates[GAMESTATE_SETTINGS].Update = Settings_Update;
+    game->gameStates[GAMESTATE_SETTINGS].Draw = Settings_Draw;
 
     game->gameStates[GAMESTATE_GAMEPLAY].Start = Gameplay_Update;
     game->gameStates[GAMESTATE_GAMEPLAY].Update = Gameplay_Update;
     game->gameStates[GAMESTATE_GAMEPLAY].Draw = Gameplay_Draw;
 
-    // game->gameStates[GAMESTATE_END].Update =
-    // game->gameStates[GAMESTATE_END].Draw =
+    game->gameStates[GAMESTATE_END].Start = End_Start;
+    game->gameStates[GAMESTATE_END].Update = End_Update;
+    game->gameStates[GAMESTATE_END].Draw = End_Draw;
 }

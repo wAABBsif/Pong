@@ -36,6 +36,10 @@ add_executable(${PROJECT_NAME} src/Main.c
         src/States/Menu.c
         src/States/Menu.h
         src/States/Menu.c
+        src/States/End.c
+        src/States/End.h
+        src/States/Settings.c
+        src/States/Settings.h
 )
 include_directories(include)
 target_link_libraries(${PROJECT_NAME} raylib)

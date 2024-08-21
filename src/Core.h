@@ -21,7 +21,7 @@ typedef struct GameData GameData;
 float Sign(float n);
 float GetRandomFloat(float min, float max);
 float InverseLerp(const float min, const float max, const float value);
-void ScoreToString(int score, char* str);
+void ScoreToString(const unsigned char score, char* str);
 void SwitchState(GameData* game, char newState);
 
 typedef struct Paddle
