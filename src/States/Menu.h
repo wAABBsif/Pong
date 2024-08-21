@@ -6,8 +6,6 @@
 #define MENU_TEXT_SPACING 0.15f
 #define MENU_SELECTED_OPTION YELLOW
 
-extern unsigned char menuSelection;
-
 void Menu_Start(GameData* game);
 void Menu_Update(GameData* game);
 void Menu_Draw(const GameData* game);

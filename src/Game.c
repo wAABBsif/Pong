@@ -30,6 +30,8 @@ void Game()
     game->ball = (Ball){0, 0, BALL_DEFAULT_SPEED, GetRandomFloat(-BALL_DEFAULT_SPEED, BALL_DEFAULT_SPEED)};
     game->scores[0] = 0;
     game->scores[1] = 0;
+    game->playerCount = 1;
+    game->menuSelection = 0;
 
     game->saveData.paddleColors[0] = 1;
     game->saveData.paddleColors[1] = 7;

@@ -2,8 +2,6 @@
 #include "../Objects/Ball.h"
 #include "../Objects/Paddle.h"
 
-unsigned char playerCount = 1;
-
 void Gameplay_Start(GameData* game)
 {
     return;
@@ -12,7 +10,7 @@ void Gameplay_Start(GameData* game)
 void Gameplay_Update(GameData* game)
 {
     Paddle_Update(&game->paddles[0], Paddle_GetWASD());
-    float player2Movement = playerCount == 1 ? Paddle_GetCPU(game->paddles[1].position.y, Ball_PredictPositionY(&game->ball, game->paddles[1].position.x)) : Paddle_GetArrows();
+    float player2Movement = game->playerCount == 1 ? Paddle_GetCPU(game->paddles[1].position.y, Ball_PredictPositionY(&game->ball, game->paddles[1].position.x)) : Paddle_GetArrows();
     Paddle_Update(&game->paddles[1], player2Movement);
     switch (Ball_Update(&game->ball))
     {

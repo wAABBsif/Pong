@@ -67,9 +67,11 @@ struct GameData
     GameState gameStates[GAMESTATE_COUNT];
     Paddle paddles[2];
     Ball ball;
-    int scores[2];
-    char gameState;
     SaveData saveData;
+    unsigned char playerCount;
+    unsigned char menuSelection;
+    unsigned char gameState;
+    unsigned char scores[2];
     char scoreTextOne[3];
     char scoreTextTwo[3];
 };

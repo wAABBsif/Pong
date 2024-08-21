@@ -2,7 +2,6 @@
 
 #include "Gameplay.h"
 
-unsigned char menuSelection = 0;
 const char* const menuOptions[] =
 {
     "1P Game",
@@ -17,27 +16,27 @@ void Menu_Start(GameData* game)
 {
     for (int i = 0; i < sizeof(menuOptions) / sizeof(char*); i++)
         menuPositions[i] = 0.5f - MeasureText(menuOptions[i], MENU_TEXT_SIZE * GetScreenWidth()) / (float)GetScreenWidth() / 2;
-    menuSelection = 0;
+    game->menuSelection = 0;
 }
 
 void Menu_Update(GameData* game)
 {
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
-        menuSelection++;
+        game->menuSelection++;
     if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
-        menuSelection--;
-    menuSelection %= 4;
+        game->menuSelection--;
+    game->menuSelection %= 4;
 
     if (IsKeyPressed(KEY_ENTER))
     {
-        switch (menuSelection)
+        switch (game->menuSelection)
         {
             case 0:
-                playerCount = 1;
+                game->playerCount = 1;
                 SwitchState(game, GAMESTATE_GAMEPLAY);
                 break;
             case 1:
-                playerCount = 2;
+                game->playerCount = 2;
                 SwitchState(game, GAMESTATE_GAMEPLAY);
                 break;
             case 2:
@@ -54,6 +53,6 @@ void Menu_Draw(const GameData* game)
 {
     for (int i = 0; i < sizeof(menuOptions) / sizeof(char*); i++)
     {
-        DrawText(menuOptions[i], menuPositions[i] * GetScreenWidth(), (MENU_TEXT_START_POSITION + i * MENU_TEXT_SPACING) * GetScreenHeight(), MENU_TEXT_SIZE * GetScreenWidth(), i == menuSelection ? YELLOW : RAYWHITE);
+        DrawText(menuOptions[i], menuPositions[i] * GetScreenWidth(), (MENU_TEXT_START_POSITION + i * MENU_TEXT_SPACING) * GetScreenHeight(), MENU_TEXT_SIZE * GetScreenWidth(), i == game->menuSelection ? YELLOW : RAYWHITE);
     }
 }
