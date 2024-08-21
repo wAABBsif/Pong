@@ -25,6 +25,9 @@ void Pause_Update(GameData* game)
     if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
         game->menuSelection--;
 
+    if (game->menuSelection <= -1)
+        game->menuSelection = 1;
+
     if (IsKeyPressed(KEY_ENTER))
     {
         switch (game->menuSelection)

@@ -69,8 +69,8 @@ struct GameData
     Paddle paddles[2];
     Ball ball;
     SaveData saveData;
+    char menuSelection;
     unsigned char playerCount;
-    unsigned char menuSelection;
     unsigned char gameState;
     unsigned char scores[2];
     char scoreTextOne[3];

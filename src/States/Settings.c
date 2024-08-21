@@ -25,6 +25,9 @@ void Settings_Update(GameData* game)
     if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
         game->menuSelection--;
 
+    if (game->menuSelection <= -1)
+        game->menuSelection = 5;
+
     if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
         ((char*)&game->saveData)[game->menuSelection]++;
 
