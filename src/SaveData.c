@@ -3,7 +3,15 @@
 
 void SavePlayerData(SaveData saveData)
 {
+    FILE* stream = fopen(PLAYER_DATA_FILENAME, "w");
+    if (stream == NULL)
+    {
+        printf("Could not save player data!\n");
+        return;
+    }
 
+    fwrite(&saveData, sizeof(SaveData), 1, stream);
+    fclose(stream);
 }
 
 void LoadPlayerData(SaveData* saveData)
@@ -15,5 +23,6 @@ void LoadPlayerData(SaveData* saveData)
         return;
     }
 
-    fread(saveData, sizeof(SaveData), sizeof(SaveData), stream);
+    fread(saveData, sizeof(SaveData), 1, stream);
+    fclose(stream);
 }
