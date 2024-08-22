@@ -29,6 +29,7 @@ char Ball_Update(Ball *const ball)
         ball->position.x = -(SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS);
         ball->velocity = Vector2Scale(ball->velocity, BALL_DEFAULT_SPEED / (ball->velocity.x));
         PlaySound(sounds[SOUND_POINT_SCORED]);
+        Paddle_RecalcError(ball);
         return BALL_PADDLE_ONE_SCORE;
     }
 
@@ -37,6 +38,7 @@ char Ball_Update(Ball *const ball)
         ball->position.x = SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS;
         ball->velocity = Vector2Scale(ball->velocity, BALL_DEFAULT_SPEED / -ball->velocity.x);
         PlaySound(sounds[SOUND_POINT_SCORED]);
+        Paddle_RecalcError(ball);
         return BALL_PADDLE_TWO_SCORE;
     }
 
