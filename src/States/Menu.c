@@ -9,14 +9,17 @@ static const char* const menu_textOptions[] =
     "Quit"
 };
 
+static const char* const gameName = "Pong";
 
 static float menu_textPositions[sizeof(menu_textOptions) / sizeof(char*)];
+static float menu_titleTextPosition;
 
 void Menu_Start(GameData* game)
 {
     Gameplay_Reset(game);
     for (int i = 0; i < sizeof(menu_textOptions) / sizeof(char*); i++)
         menu_textPositions[i] = 0.5f - MeasureText(menu_textOptions[i], MENU_TEXT_SIZE * GetScreenWidth()) / (float)GetScreenWidth() / 2;
+    menu_titleTextPosition = 0.5f - MeasureText(gameName, MENU_TITLE_SIZE * GetScreenWidth()) / (float)GetScreenWidth() / 2;
     game->menuSelection = 0;
 }
 
@@ -65,6 +68,7 @@ void Menu_Update(GameData* game)
 
 void Menu_Draw(const GameData* game)
 {
+    DrawText(gameName, menu_titleTextPosition * GetScreenWidth(), MENU_TITLE_POSITION * GetScreenHeight(), MENU_TITLE_SIZE * GetScreenWidth(), MENU_TITLE_COLOR);
     for (int i = 0; i < sizeof(menu_textOptions) / sizeof(char*); i++)
         DrawText(menu_textOptions[i], menu_textPositions[i] * GetScreenWidth(), (MENU_TEXT_START_POSITION + i * MENU_TEXT_SPACING) * GetScreenHeight(), MENU_TEXT_SIZE * GetScreenWidth(), i == game->menuSelection ? YELLOW : RAYWHITE);
 }
