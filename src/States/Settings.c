@@ -20,19 +20,31 @@ void Settings_Start(GameData* game)
 void Settings_Update(GameData* game)
 {
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
+    {
+        PlaySound(sounds[SOUND_MENU_MOVE]);
         game->menuSelection++;
+    }
 
     if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
+    {
+        PlaySound(sounds[SOUND_MENU_MOVE]);
         game->menuSelection--;
+    }
 
     if (game->menuSelection <= -1)
         game->menuSelection = 5;
 
     if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
+    {
+        PlaySound(sounds[SOUND_MENU_MOVE]);
         ((char*)&game->saveData)[game->menuSelection]++;
+    }
 
     if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A))
+    {
+        PlaySound(sounds[SOUND_MENU_MOVE]);
         ((char*)&game->saveData)[game->menuSelection]--;
+    }
 
     if (game->menuSelection <= 3)
         ((char*)&game->saveData)[game->menuSelection] %= sizeof(availableColors) / sizeof(Color);
@@ -41,6 +53,7 @@ void Settings_Update(GameData* game)
 
     if (IsKeyPressed(KEY_ENTER) && game->menuSelection == 5)
     {
+        PlaySound(sounds[SOUND_MENU_ENTER]);
         SavePlayerData(game->saveData);
         SwitchState(game, GAMESTATE_MENU);
     }

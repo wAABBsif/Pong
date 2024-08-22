@@ -1,5 +1,5 @@
 include(FetchContent)
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.26)
 project(Pong)
 
 set(CMAKE_C_STANDARD 99)
@@ -45,3 +45,5 @@ add_executable(${PROJECT_NAME} src/Main.c
 )
 include_directories(include)
 target_link_libraries(${PROJECT_NAME} raylib)
+execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/res
+        ${CMAKE_BINARY_DIR}/res)

@@ -9,12 +9,14 @@ char Ball_Update(Ball *const ball)
 
     if (ball->position.y + BALL_RADIUS > SCREEN_HEIGHT_IN_UNITS / 2.0f - BORDER_SIZE)
     {
+        PlaySound(sounds[SOUND_BALL_BOUNCE]);
         ball->position.y = SCREEN_HEIGHT_IN_UNITS / 2.0f - BORDER_SIZE - BALL_RADIUS;
         ball->velocity.y = -ball->velocity.y;
     }
 
     if (ball->position.y - BALL_RADIUS < BORDER_SIZE - SCREEN_HEIGHT_IN_UNITS / 2.0f)
     {
+        PlaySound(sounds[SOUND_BALL_BOUNCE]);
         ball->position.y = BORDER_SIZE + BALL_RADIUS - SCREEN_HEIGHT_IN_UNITS / 2.0f;
         ball->velocity.y = -ball->velocity.y;
     }
@@ -26,6 +28,7 @@ char Ball_Update(Ball *const ball)
     {
         ball->position.x = -(SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS);
         ball->velocity = Vector2Scale(ball->velocity, BALL_DEFAULT_SPEED / (ball->velocity.x));
+        PlaySound(sounds[SOUND_POINT_SCORED]);
         return BALL_PADDLE_ONE_SCORE;
     }
 
@@ -33,6 +36,7 @@ char Ball_Update(Ball *const ball)
     {
         ball->position.x = SCREEN_WIDTH_IN_UNITS / 2.0f + BALL_RADIUS;
         ball->velocity = Vector2Scale(ball->velocity, BALL_DEFAULT_SPEED / -ball->velocity.x);
+        PlaySound(sounds[SOUND_POINT_SCORED]);
         return BALL_PADDLE_TWO_SCORE;
     }
 
@@ -53,6 +57,8 @@ void Ball_ApplyCollision(Ball *const ball, const Paddle *paddle)
 
     if (!CheckCollisionRecs(ballRect, paddleRect))
         return;
+
+    PlaySound(sounds[SOUND_BALL_BOUNCE]);
 
     if (ballRect.x + ballRect.width - ball->velocity.x * GetFrameTime() < paddleRect.x && ball->velocity.x > 0)
     {

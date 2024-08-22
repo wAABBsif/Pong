@@ -17,6 +17,13 @@
 #define GAMESTATE_END 4
 #define GAMESTATE_COUNT 5
 
+#define SOUND_MENU_MOVE 0
+#define SOUND_MENU_ENTER 1
+#define SOUND_BALL_BOUNCE 2
+#define SOUND_POINT_SCORED 3
+#define SOUND_GAME_END 4
+#define SOUND_COUNT 5
+
 typedef struct GameData GameData;
 
 float Sign(float n);
@@ -62,6 +69,8 @@ const static Color availableColors[] =
     ORANGE,
     (Color){255, 70, 70, 255}
 };
+
+extern Sound sounds[SOUND_COUNT];
 
 struct GameData
 {

@@ -20,16 +20,23 @@ void Pause_Start(GameData* game)
 void Pause_Update(GameData* game)
 {
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
+    {
+        PlaySound(sounds[SOUND_MENU_MOVE]);
         game->menuSelection++;
+    }
 
     if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
+    {
+        PlaySound(sounds[SOUND_MENU_MOVE]);
         game->menuSelection--;
+    }
 
     if (game->menuSelection <= -1)
         game->menuSelection = 1;
 
     if (IsKeyPressed(KEY_ENTER))
     {
+        PlaySound(sounds[SOUND_MENU_ENTER]);
         switch (game->menuSelection)
         {
             case 1:

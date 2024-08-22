@@ -9,6 +9,7 @@ static const char* const menu_textOptions[] =
     "Quit"
 };
 
+
 static float menu_textPositions[sizeof(menu_textOptions) / sizeof(char*)];
 
 void Menu_Start(GameData* game)
@@ -22,15 +23,25 @@ void Menu_Start(GameData* game)
 void Menu_Update(GameData* game)
 {
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
+    {
+        PlaySound(sounds[SOUND_MENU_MOVE]);
         game->menuSelection++;
+    }
 
     if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
+    {
+        PlaySound(sounds[SOUND_MENU_MOVE]);
         game->menuSelection--;
+    }
+
+    if (game->menuSelection <= -1)
+        game->menuSelection = 3;
 
     game->menuSelection %= 4;
 
     if (IsKeyPressed(KEY_ENTER))
     {
+        PlaySound(sounds[SOUND_MENU_ENTER]);
         switch (game->menuSelection)
         {
             case 0:
@@ -45,6 +56,7 @@ void Menu_Update(GameData* game)
                 SwitchState(game, GAMESTATE_SETTINGS);
                 break;
             default:
+                CloseAudioDevice();
                 CloseWindow();
                 break;
         }

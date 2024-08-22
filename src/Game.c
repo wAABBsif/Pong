@@ -17,14 +17,17 @@
 #define BACKGROUND_COLOR (Color){0x08, 0x08, 0x08, 0x08}
 
 GameData* game;
+Sound sounds[SOUND_COUNT];
 
-void SetupGameStates();
+void InitializeGameStates();
+void InitializeSounds();
 
 void Game()
 {
     SetRandomSeed(time(NULL));
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_WIDTH / DEFAULT_ASPECT_RATIO, "Pong");
+    InitAudioDevice();
 
     game = malloc(sizeof(GameData));
 
@@ -38,7 +41,8 @@ void Game()
     game->saveData.maxScore = 5;
 
     LoadPlayerData(&game->saveData);
-    SetupGameStates();
+    InitializeGameStates();
+    InitializeSounds();
     SwitchState(game, GAMESTATE_MENU);
 
     while (!WindowShouldClose())
@@ -52,10 +56,11 @@ void Game()
         EndDrawing();
     }
 
+    CloseAudioDevice();
     CloseWindow();
 }
 
-void SetupGameStates()
+void InitializeGameStates()
 {
     game->gameStates[GAMESTATE_MENU].Start = Menu_Start;
     game->gameStates[GAMESTATE_MENU].Update = Menu_Update;
@@ -76,4 +81,13 @@ void SetupGameStates()
     game->gameStates[GAMESTATE_END].Start = End_Start;
     game->gameStates[GAMESTATE_END].Update = End_Update;
     game->gameStates[GAMESTATE_END].Draw = End_Draw;
+}
+
+void InitializeSounds()
+{
+    sounds[SOUND_MENU_MOVE] = LoadSound("res/menuMove.wav");
+    sounds[SOUND_MENU_ENTER] = LoadSound("res/menuEnter.wav");
+    sounds[SOUND_BALL_BOUNCE] = LoadSound("res/ballBounce.wav");
+    sounds[SOUND_POINT_SCORED] = LoadSound("res/pointScored.wav");
+    sounds[SOUND_GAME_END] = LoadSound("res/gameEnd.wav");
 }

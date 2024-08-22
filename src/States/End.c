@@ -13,6 +13,7 @@ static float end_timer;
 
 void End_Start(GameData* game)
 {
+    PlaySound(sounds[SOUND_GAME_END]);
     for (int i = 0; i < sizeof(end_textLines) / sizeof(char*); i++)
         end_textPositions[i] = 0.5f - MeasureText(end_textLines[i], END_TEXT_SIZE * GetScreenWidth()) / (float)GetScreenWidth() / 2;
     end_timer = END_WAIT_TIME;
