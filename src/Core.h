@@ -49,6 +49,7 @@ typedef struct SaveData
     unsigned char ballColor;
     unsigned char miscColor;
     unsigned char maxScore;
+    char volume;
 } SaveData;
 
 typedef struct GameState

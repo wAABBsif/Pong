@@ -6,8 +6,8 @@
 
 #define SETTINGS_TEXT_MARGIN 0.05f
 #define SETTINGS_TEXT_SIZE 0.05f
-#define SETTINGS_TEXT_START_POSITION (1.5f / 14.0f)
-#define SETTINGS_TEXT_SPACING (1.0f / 7.0f)
+#define SETTINGS_TEXT_START_POSITION (1.5f / 16.0f)
+#define SETTINGS_TEXT_SPACING (1.0f / 8.0f)
 
 void Settings_Start(GameData* game);
 void Settings_Update(GameData* game);

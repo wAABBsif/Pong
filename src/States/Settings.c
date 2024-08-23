@@ -8,7 +8,8 @@ static const char* const settings_textOptions[] =
     "Right Paddle Color",
     "Ball Color",
     "Misc. Color",
-    "Score Needed To Win: %02i",
+    "Score Needed To Win: %01i",
+    "Master Volume: %01i",
     "Back"
 };
 
@@ -32,33 +33,37 @@ void Settings_Update(GameData* game)
     }
 
     if (game->menuSelection <= -1)
-        game->menuSelection = 5;
+        game->menuSelection = 6;
 
     if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
     {
-        PlaySound(sounds[SOUND_MENU_MOVE]);
         ((char*)&game->saveData)[game->menuSelection]++;
+        PlaySound(sounds[SOUND_MENU_MOVE]);
+        SetMasterVolume(game->saveData.volume / 10.0f);
     }
 
     if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A))
     {
-        PlaySound(sounds[SOUND_MENU_MOVE]);
         ((char*)&game->saveData)[game->menuSelection]--;
+        PlaySound(sounds[SOUND_MENU_MOVE]);
+        SetMasterVolume(game->saveData.volume / 10.0f);
     }
+
+    game->saveData.volume = Clamp(game->saveData.volume, 0, 10);
 
     if (game->menuSelection <= 3)
         ((char*)&game->saveData)[game->menuSelection] %= sizeof(availableColors) / sizeof(Color);
 
     game->saveData.maxScore = Clamp(game->saveData.maxScore, SETTINGS_MIN_WIN_SCORE, SETTINGS_MAX_WIN_SCORE);
 
-    if (IsKeyPressed(KEY_ENTER) && game->menuSelection == 5)
+    if (IsKeyPressed(KEY_ENTER) && game->menuSelection == 6)
     {
         PlaySound(sounds[SOUND_MENU_ENTER]);
         SavePlayerData(game->saveData);
         SwitchState(game, GAMESTATE_MENU);
     }
 
-    game->menuSelection %= 6;
+    game->menuSelection %= 7;
 }
 
 void Settings_Draw(const GameData* game)
@@ -71,6 +76,6 @@ void Settings_Draw(const GameData* game)
         DrawText(settings_textOptions[i], SETTINGS_TEXT_MARGIN * GetScreenWidth(), (SETTINGS_TEXT_START_POSITION + i * SETTINGS_TEXT_SPACING) * GetScreenHeight(), SETTINGS_TEXT_SIZE * GetScreenWidth(), c);
     }
 
-    for (int i = 4; i < 6; i++)
-        DrawText(TextFormat(settings_textOptions[i], game->saveData.maxScore), SETTINGS_TEXT_MARGIN * GetScreenWidth(), (SETTINGS_TEXT_START_POSITION + i * SETTINGS_TEXT_SPACING) * GetScreenHeight(), SETTINGS_TEXT_SIZE * GetScreenWidth(), i == game->menuSelection ? YELLOW : RAYWHITE);
+    for (int i = 4; i < 7; i++)
+        DrawText(TextFormat(settings_textOptions[i], ((char*)&game->saveData)[i]), SETTINGS_TEXT_MARGIN * GetScreenWidth(), (SETTINGS_TEXT_START_POSITION + i * SETTINGS_TEXT_SPACING) * GetScreenHeight(), SETTINGS_TEXT_SIZE * GetScreenWidth(), i == game->menuSelection ? YELLOW : RAYWHITE);
 }

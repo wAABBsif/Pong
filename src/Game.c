@@ -38,12 +38,14 @@ void Game()
     game->saveData.paddleColors[1] = 7;
     game->saveData.ballColor = 0;
     game->saveData.miscColor = 0;
+    game->saveData.volume = 10;
     game->saveData.maxScore = 5;
 
     LoadPlayerData(&game->saveData);
     InitializeGameStates();
     InitializeSounds();
     SwitchState(game, GAMESTATE_MENU);
+    SetMasterVolume(game->saveData.volume / 10.0f);
 
     while (!WindowShouldClose())
     {
