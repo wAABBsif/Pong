@@ -6,9 +6,10 @@ Features
 --------
 - 1-player mode to play against a CPU
 - 2-player mode to play against another player
-- Change game colors and the amount of score needed to win
+- Change game colors, volume, and the amount of score needed to win
 - Settings are persistent between different sessions
 - Support for different frame rates and aspect ratios
+- Sound effects
 
 Controls
 --------
