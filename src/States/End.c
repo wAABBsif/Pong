@@ -29,5 +29,5 @@ void End_Update(GameData* game)
 void End_Draw(const GameData* game)
 {
     const char index = game->scores[0] > game->scores[1] ? 0 : game->playerCount == 2 ? 1 : 2;
-    DrawText(end_textLines[index], end_textPositions[index] * GetScreenWidth(), GetScreenHeight() / 2, END_TEXT_SIZE * GetScreenWidth(), availableColors[game->saveData.miscColor]);
+    DrawText(end_textLines[index], end_textPositions[index] * GetScreenWidth(), GetScreenHeight() / 2  - END_TEXT_SIZE * GetScreenHeight(), END_TEXT_SIZE * GetScreenWidth(), availableColors[game->saveData.paddleColors[game->scores[0] > game->scores[1] ? 0 : 1]]);
 }
